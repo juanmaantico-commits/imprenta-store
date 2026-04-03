@@ -63,7 +63,7 @@ const db = {
   },
   async upsertProducto(p) {
     const body = JSON.stringify({ id: p.id, nombre: p.nombre, categoria: p.categoria, precio: p.precio,
-      unidad: p.unidad, desc: p.desc, img: p.img, opciones: p.opciones, medias: p.medias });
+      unidad: p.unidad, descripcion: p.descripcion, img: p.img, opciones: p.opciones, medias: p.medias });
     return sbFetch("/productos", { method:"POST", body, headers:{ "Prefer":"resolution=merge-duplicates" } });
   },
   async deleteProducto(id) {
