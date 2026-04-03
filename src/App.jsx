@@ -1135,8 +1135,6 @@ export default function App() {
   const [esAdmin, setEsAdmin] = useState(false);
 const [showLoginAdmin, setShowLoginAdmin] = useState(false);
   const [showAdmin, setShowAdmin]   = useState(false);
-const [esAdmin, setEsAdmin]       = useState(false);
-const [showLoginAdmin, setShowLoginAdmin] = useState(false);
   const [showPedidos, setShowPedidos] = useState(false);
   const [dbLoading, setDbLoading]   = useState(!DEMO_MODE);
   const [dbStatus, setDbStatus]     = useState(DEMO_MODE ? "demo" : "loading"); // demo|loading|ok|error
