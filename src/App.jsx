@@ -1000,6 +1000,7 @@ function CarritoPanel({ items, onClose, onUpdate, onRemove, onCheckout }) {
 }
 
 // ── BANNER ────────────────────────────────────────────────────────────────────
+const ADMIN_PASS = "Espectro4035@";
 const BANNER_DEFAULT = {
   titulo:"Impresiones de calidad,", subtitulo:"a tu medida",
   slogan:"Folletos, tarjetas, stickers, talonarios, fotos, carpetas y candy bar. Subí tu diseño o elegí diseño incluido sin costo.",
@@ -1131,7 +1132,11 @@ export default function App() {
   const [banner, setBanner]         = useState({...BANNER_DEFAULT});
   const [showBannerEd, setShowBannerEd] = useState(false);
   const [productos, setProductos]   = useState(PRODUCTOS);
+  const [esAdmin, setEsAdmin] = useState(false);
+const [showLoginAdmin, setShowLoginAdmin] = useState(false);
   const [showAdmin, setShowAdmin]   = useState(false);
+const [esAdmin, setEsAdmin]       = useState(false);
+const [showLoginAdmin, setShowLoginAdmin] = useState(false);
   const [showPedidos, setShowPedidos] = useState(false);
   const [dbLoading, setDbLoading]   = useState(!DEMO_MODE);
   const [dbStatus, setDbStatus]     = useState(DEMO_MODE ? "demo" : "loading"); // demo|loading|ok|error
@@ -1153,7 +1158,15 @@ export default function App() {
       }
     })();
   },[]);
-
+const handleLoginAdmin = (pass) => {
+  if (pass === ADMIN_PASS) {
+    setEsAdmin(true);
+    setShowLoginAdmin(false);
+    showToast("Bienvenido 👋");
+  } else {
+    showToast("Contraseña incorrecta");
+  }
+};
   const showToast = (msg) => { setToast(msg); setTimeout(()=>setToast(null), 2800); };
 
   const agregarAlCarrito = (producto) => {
@@ -1245,15 +1258,23 @@ export default function App() {
                   <span style={{fontSize:10,color:"#f59e0b",fontFamily:"monospace"}}>Demo</span>
                 </div>
               )}
-              <button onClick={()=>setShowBannerEd(true)} style={{display:"flex",alignItems:"center",gap:7,background:"#111118",border:"1px solid #1f2937",borderRadius:11,padding:"9px 15px",color:"#64748b",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:600}}>
-                <IcoPencil/> Personalizar
-              </button>
-              <button onClick={()=>setShowPedidos(true)} style={{display:"flex",alignItems:"center",gap:7,background:"rgba(139,92,246,0.1)",border:"1px solid rgba(139,92,246,0.25)",borderRadius:11,padding:"9px 15px",color:"#8b5cf6",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:700}}>
-                <IcoInbox/> Pedidos
-              </button>
-              <button onClick={()=>setShowAdmin(true)} style={{display:"flex",alignItems:"center",gap:7,background:"rgba(245,158,11,0.1)",border:"1px solid rgba(245,158,11,0.25)",borderRadius:11,padding:"9px 15px",color:"#f59e0b",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:700}}>
-                <IcoAdmin/> Admin
-              </button>
+              {esAdmin ? (
+  <>
+    <button onClick={()=>setShowBannerEd(true)} style={{display:"flex",alignItems:"center",gap:7,background:"#111118",border:"1px solid #1f2937",borderRadius:11,padding:"9px 15px",color:"#64748b",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:600}}>
+      <IcoPencil/> Personalizar
+    </button>
+    <button onClick={()=>setShowPedidos(true)} style={{display:"flex",alignItems:"center",gap:7,background:"rgba(139,92,246,0.1)",border:"1px solid rgba(139,92,246,0.25)",borderRadius:11,padding:"9px 15px",color:"#8b5cf6",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:700}}>
+      <IcoInbox/> Pedidos
+    </button>
+    <button onClick={()=>setShowAdmin(true)} style={{display:"flex",alignItems:"center",gap:7,background:"rgba(245,158,11,0.1)",border:"1px solid rgba(245,158,11,0.25)",borderRadius:11,padding:"9px 15px",color:"#f59e0b",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:700}}>
+      <IcoAdmin/> Admin
+    </button>
+  </>
+) : (
+  <button onClick={()=>setShowLoginAdmin(true)} style={{display:"flex",alignItems:"center",gap:7,background:"#111118",border:"1px solid #1f2937",borderRadius:11,padding:"9px 15px",color:"#64748b",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:600}}>
+    <IcoLock/> Acceso
+  </button>
+)}
               <button onClick={()=>setShowCart(true)} style={{position:"relative",display:"flex",alignItems:"center",gap:8,background:totalItems>0?"linear-gradient(135deg,#0ea5e9,#38bdf8)":"#111118",border:`1px solid ${totalItems>0?"transparent":"#1f2937"}`,borderRadius:11,padding:"9px 18px",color:totalItems>0?"#fff":"#64748b",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:600,transition:"all 0.2s"}}>
                 <IcoCart/> Presupuesto
                 {totalItems>0 && <span style={{background:"#fff",color:"#0ea5e9",borderRadius:"50%",width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:800,flexShrink:0}}>{totalItems}</span>}
@@ -1361,6 +1382,26 @@ export default function App() {
       {detalle && <ModalDetalle producto={detalle} onClose={()=>setDetalle(null)} onAdd={agregarAlCarrito}/>}
       {showCart && <CarritoPanel items={carrito} onClose={()=>setShowCart(false)} onUpdate={actualizarQty} onRemove={eliminarItem} onCheckout={()=>{setShowCart(false);setShowCheckout(true);}}/>}
       {showCheckout && <CheckoutModal items={carrito} onClose={()=>setShowCheckout(false)} onDone={handleCheckoutDone} onUpdateQty={actualizarQty} onRemove={eliminarItem}/>}
+      {showLoginAdmin && (
+  <div onClick={()=>setShowLoginAdmin(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.85)",zIndex:400,display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(6px)"}}>
+    <div onClick={e=>e.stopPropagation()} style={{background:"#0d0d10",border:"1px solid #1f2937",borderRadius:20,padding:"32px",width:320}}>
+      <h2 style={{margin:"0 0 6px",color:"#f1f5f9",fontFamily:"'DM Serif Display',serif",fontSize:20,textAlign:"center"}}>Acceso Admin</h2>
+      <p style={{margin:"0 0 20px",color:"#475569",fontSize:13,textAlign:"center"}}>Solo para el administrador</p>
+      <input
+        type="password"
+        placeholder="Contraseña"
+        autoFocus
+        onKeyDown={e=>{ if(e.key==="Enter") handleLoginAdmin(e.target.value); }}
+        style={{width:"100%",background:"#111118",border:"1px solid #1f2937",borderRadius:9,padding:"11px 14px",color:"#e2e8f0",fontSize:14,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginBottom:12}}
+      />
+      <button
+        onClick={e=>{ const inp = e.target.previousSibling; handleLoginAdmin(inp.value); }}
+        style={{width:"100%",background:"linear-gradient(135deg,#0ea5e9,#38bdf8)",border:"none",borderRadius:9,padding:"11px",color:"#fff",fontWeight:800,cursor:"pointer",fontSize:14,fontFamily:"inherit"}}>
+        Entrar
+      </button>
+    </div>
+  </div>
+)}
       {showBannerEd && <BannerEditor banner={banner} onSave={handleSaveBanner} onClose={()=>setShowBannerEd(false)}/>}
       {showAdmin && <AdminPanel productos={productos} onSave={handleSaveProductos} onClose={()=>setShowAdmin(false)}/>}
       {showPedidos && <PedidosPanel onClose={()=>setShowPedidos(false)}/>}
