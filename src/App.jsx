@@ -248,7 +248,17 @@ function MediaUpload({ label, accept, onFile, preview, tipo }) {
             <span style={{color:"#fff",fontSize:12,background:"rgba(0,0,0,0.6)",padding:"6px 12px",borderRadius:8}}>Cambiar</span>
           </div>
         )}
-        <input type="file" accept={accept} style={{display:"none"}} onChange={e=>{const f=e.target.files[0];if(f)onFile(f,URL.createObjectURL(f));}}/>
+        <input type="file" accept={accept} style={{display:"none"}} onChange={async e=>{
+  const f=e.target.files[0];
+  if(!f) return;
+  onFile(f, URL.createObjectURL(f));
+  if(CLD_PRESET !== "TU_UPLOAD_PRESET"){
+    try{
+      const res = await subirCLD(f, ()=>{});
+      onFile(f, res.secure_url);
+    } catch(e){ console.error("Error Cloudinary:", e); }
+  }
+}}/>
       </label>
     </div>
   );
