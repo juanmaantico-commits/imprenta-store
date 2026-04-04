@@ -281,10 +281,22 @@ function AdminPanel({ productos, onSave, onClose }) {
 
   const set = (k,v) => setEditData(p=>({...p,[k]:v}));
 
-  const guardarProducto = () => {
+  const guardarProducto = async () => {
+    const mediasActualizadas = await Promise.all(
+      editData.medias.map(async (m) => {
+        if (m.src && m.src.startsWith("blob:") && m._file) {
+          try {
+            const res = await subirCLD(m._file, ()=>{});
+            return { ...m, src: res.secure_url };
+          } catch(e) { return m; }
+        }
+        return m;
+      })
+    );
+    const editActualizado = { ...editData, medias: mediasActualizadas };
     const updated = lista.map((p,i)=>i===editIdx?{
-      ...editData,
-      img: editData.medias.find(m=>m.principal&&m.tipo==="image")?.src || editData.medias.find(m=>m.tipo==="image")?.src || editData.img,
+      ...editActualizado,
+      img: mediasActualizadas.find(m=>m.principal&&m.tipo==="image")?.src || mediasActualizadas.find(m=>m.tipo==="image")?.src || editData.img,
     }:p);
     setLista(updated);
     setEditIdx(null);
@@ -292,7 +304,7 @@ function AdminPanel({ productos, onSave, onClose }) {
   };
 
   const agregarMedia = (file, url, tipo) => {
-    const nueva = { tipo, src: url, nombre: file.name, principal: editData.medias.length===0 };
+    const nueva = { tipo, src: url, nombre: file.name, principal: editData.medias.length===0, _file: file };
     setEditData(p=>({...p, medias:[...p.medias, nueva]}));
   };
 
