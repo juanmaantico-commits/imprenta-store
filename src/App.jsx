@@ -1249,6 +1249,7 @@ const handleLoginAdmin = (pass) => {
         body{background:#08080b;font-family:'Syne',sans-serif}
         ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0d0d10}::-webkit-scrollbar-thumb{background:#1f2937;border-radius:3px}
         input::placeholder,textarea::placeholder{color:#2a3545}
+        @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
         .card-appear{animation:fadeUp 0.4s ease both}
       `}</style>
@@ -1354,16 +1355,31 @@ const handleLoginAdmin = (pass) => {
           <p style={{color:"#2a3545",fontSize:13,marginBottom:18,fontFamily:"'IBM Plex Mono',monospace"}}>
             {filtrados.length} producto{filtrados.length!==1?"s":""} · <span style={{color:"#0ea5e9"}}>{cat}</span>
           </p>
-          {filtrados.length===0
-            ? <div style={{textAlign:"center",color:"#1f2937",padding:"80px 0",fontSize:15}}>Sin resultados para "{search}"</div>
-            : <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(250px,1fr))",gap:18}}>
-                {filtrados.map((p,i)=>(
-                  <div key={p.id} className="card-appear" style={{animationDelay:`${i*40}ms`}}>
-                    <Tarjeta producto={p} onVer={setDetalle} onAdd={agregarAlCarrito}/>
-                  </div>
-                ))}
-              </div>
-          }
+          {dbLoading
+  ? (
+    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(250px,1fr))",gap:18}}>
+      {[1,2,3,4,5,6].map(i=>(
+        <div key={i} style={{background:"#0d0d10",borderRadius:16,overflow:"hidden",border:"1px solid #1a1a24",height:320}}>
+          <div style={{height:190,background:"linear-gradient(90deg,#111118 25%,#1a1a24 50%,#111118 75%)",backgroundSize:"200% 100%",animation:"shimmer 1.5s infinite"}}/>
+          <div style={{padding:15,display:"flex",flexDirection:"column",gap:8}}>
+            <div style={{height:16,background:"#1a1a24",borderRadius:6,width:"70%"}}/>
+            <div style={{height:12,background:"#111118",borderRadius:6,width:"90%"}}/>
+            <div style={{height:12,background:"#111118",borderRadius:6,width:"60%"}}/>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+  : filtrados.length===0
+    ? <div style={{textAlign:"center",color:"#1f2937",padding:"80px 0",fontSize:15}}>Sin resultados para "{search}"</div>
+    : <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(250px,1fr))",gap:18}}>
+        {filtrados.map((p,i)=>(
+          <div key={p.id} className="card-appear" style={{animationDelay:`${i*40}ms`}}>
+            <Tarjeta producto={p} onVer={setDetalle} onAdd={agregarAlCarrito}/>
+          </div>
+        ))}
+      </div>
+}
 
           {/* Llamada a la acción */}
           <div style={{marginTop:56,background:"linear-gradient(135deg,#0a1628,#0f1f35)",border:"1px solid rgba(14,165,233,0.2)",borderRadius:20,padding:"clamp(24px,4vw,44px)",display:"flex",flexWrap:"wrap",gap:24,alignItems:"center",justifyContent:"space-between"}}>
