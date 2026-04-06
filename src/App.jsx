@@ -1314,9 +1314,11 @@ const handleLoginAdmin = (pass) => {
         {/* HERO */}
         <div style={{position:"relative",overflow:"hidden",background:`linear-gradient(135deg,${banner.colorBg1} 0%,${banner.colorBg2} 50%,${banner.colorBg1} 100%)`,borderBottom:"1px solid #111118",padding:"clamp(40px,6vw,80px) clamp(16px,5vw,60px)"}}>
           {banner.bgImg && <img src={banner.bgImg} alt="" style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.22,pointerEvents:"none"}}/>}
-          <button onClick={()=>setShowBannerEd(true)} style={{position:"absolute",top:16,right:16,display:"flex",alignItems:"center",gap:7,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:10,padding:"8px 14px",color:"#94a3b8",cursor:"pointer",fontSize:12,fontFamily:"inherit",zIndex:2}}>
-            <IcoPencil/> Editar banner
-          </button>
+          {esAdmin && (
+  <button onClick={()=>setShowBannerEd(true)} style={{position:"absolute",top:16,right:16,display:"flex",alignItems:"center",gap:7,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:10,padding:"8px 14px",color:"#94a3b8",cursor:"pointer",fontSize:12,fontFamily:"inherit",zIndex:2}}>
+    <IcoPencil/> Editar banner
+  </button>
+)}
           <div className="hero-content" style={{position:"relative",zIndex:1,maxWidth:1320,margin:"0 auto",display:"flex",flexWrap:"wrap",gap:24,alignItems:"center",justifyContent:"space-between"}}>
             <div style={{maxWidth:560}}>
               <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(14,165,233,0.1)",border:"1px solid rgba(14,165,233,0.2)",borderRadius:20,padding:"5px 14px",marginBottom:20}}>
