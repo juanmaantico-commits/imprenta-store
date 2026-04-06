@@ -1249,6 +1249,11 @@ const handleLoginAdmin = (pass) => {
         body{background:#08080b;font-family:'Syne',sans-serif}
         ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0d0d10}::-webkit-scrollbar-thumb{background:#1f2937;border-radius:3px}
         input::placeholder,textarea::placeholder{color:#2a3545}
+        @media(max-width:768px){
+  .hero-content{flex-direction:column!important;gap:20px!important;}
+  .hero-stats{justify-content:center!important;flex-wrap:wrap!important;}
+  .header-actions span{display:none!important;}
+}
         @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
         .card-appear{animation:fadeUp 0.4s ease both}
@@ -1281,9 +1286,11 @@ const handleLoginAdmin = (pass) => {
               )}
               {esAdmin ? (
   <>
-    <button onClick={()=>setShowBannerEd(true)} style={{display:"flex",alignItems:"center",gap:7,background:"#111118",border:"1px solid #1f2937",borderRadius:11,padding:"9px 15px",color:"#64748b",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:600}}>
-      <IcoPencil/> Personalizar
-    </button>
+    {esAdmin && (
+  <button onClick={()=>setShowBannerEd(true)} style={{position:"absolute",top:16,right:16,display:"flex",alignItems:"center",gap:7,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:10,padding:"8px 14px",color:"#94a3b8",cursor:"pointer",fontSize:12,fontFamily:"inherit",zIndex:2}}>
+    <IcoPencil/> Editar banner
+  </button>
+)}
     <button onClick={()=>setShowPedidos(true)} style={{display:"flex",alignItems:"center",gap:7,background:"rgba(139,92,246,0.1)",border:"1px solid rgba(139,92,246,0.25)",borderRadius:11,padding:"9px 15px",color:"#8b5cf6",cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:700}}>
       <IcoInbox/> Pedidos
     </button>
@@ -1310,7 +1317,7 @@ const handleLoginAdmin = (pass) => {
           <button onClick={()=>setShowBannerEd(true)} style={{position:"absolute",top:16,right:16,display:"flex",alignItems:"center",gap:7,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:10,padding:"8px 14px",color:"#94a3b8",cursor:"pointer",fontSize:12,fontFamily:"inherit",zIndex:2}}>
             <IcoPencil/> Editar banner
           </button>
-          <div style={{position:"relative",zIndex:1,maxWidth:1320,margin:"0 auto",display:"flex",flexWrap:"wrap",gap:24,alignItems:"center",justifyContent:"space-between"}}>
+          <div className="hero-content" style={{position:"relative",zIndex:1,maxWidth:1320,margin:"0 auto",display:"flex",flexWrap:"wrap",gap:24,alignItems:"center",justifyContent:"space-between"}}>
             <div style={{maxWidth:560}}>
               <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(14,165,233,0.1)",border:"1px solid rgba(14,165,233,0.2)",borderRadius:20,padding:"5px 14px",marginBottom:20}}>
                 <span style={{color:banner.colorAcento,fontSize:11,fontWeight:700,letterSpacing:"0.12em",textTransform:"uppercase"}}>Imprenta online · Envíos a todo el país</span>
@@ -1325,14 +1332,29 @@ const handleLoginAdmin = (pass) => {
                 ))}
               </div>
             </div>
-            <div style={{display:"flex",gap:14,flexWrap:"wrap"}}>
-              {[["500+","Clientes"],["9","Categorías"],["24hs","Turno urgente"],["4.9","Rating"]].map(([n,l])=>(
-                <div key={l} style={{background:"rgba(14,165,233,0.05)",border:"1px solid rgba(14,165,233,0.1)",borderRadius:14,padding:"18px 22px",textAlign:"center",minWidth:88}}>
-                  <p style={{margin:0,color:banner.colorAcento,fontFamily:"'IBM Plex Mono',monospace",fontSize:22,fontWeight:700}}>{n}</p>
-                  <p style={{margin:"3px 0 0",color:"#374151",fontSize:10,letterSpacing:"0.1em",textTransform:"uppercase"}}>{l}</p>
-                </div>
-              ))}
-            </div>
+            <div className="hero-stats" style={{display:"flex",flexDirection:"column",gap:14,alignItems:"flex-end"}}>
+  <div style={{display:"flex",gap:14,flexWrap:"wrap",justifyContent:"flex-end"}}>
+    {[["500+","Clientes"],["9","Categorías"],["24hs","Turno urgente"],["4.9","Rating"]].map(([n,l])=>(
+      <div key={l} style={{background:"rgba(14,165,233,0.05)",border:"1px solid rgba(14,165,233,0.1)",borderRadius:14,padding:"18px 22px",textAlign:"center",minWidth:88}}>
+        <p style={{margin:0,color:banner.colorAcento,fontFamily:"'IBM Plex Mono',monospace",fontSize:22,fontWeight:700}}>{n}</p>
+        <p style={{margin:"3px 0 0",color:"#374151",fontSize:10,letterSpacing:"0.1em",textTransform:"uppercase"}}>{l}</p>
+      </div>
+    ))}
+  </div>
+  {/* Iconos redes sociales */}
+  <div style={{display:"flex",gap:12}}>
+    <a href="https://wa.me/5491140353115" target="_blank" rel="noreferrer"
+      style={{display:"flex",alignItems:"center",gap:8,background:"rgba(37,211,102,0.1)",border:"1px solid rgba(37,211,102,0.25)",borderRadius:11,padding:"10px 18px",color:"#25d366",textDecoration:"none",fontSize:13,fontWeight:700,fontFamily:"inherit"}}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="https://instagram.com/TU_USUARIO_IG" target="_blank" rel="noreferrer"
+      style={{display:"flex",alignItems:"center",gap:8,background:"rgba(225,48,108,0.1)",border:"1px solid rgba(225,48,108,0.25)",borderRadius:11,padding:"10px 18px",color:"#e1306c",textDecoration:"none",fontSize:13,fontWeight:700,fontFamily:"inherit"}}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      Instagram
+    </a>
+  </div>
+</div>
           </div>
         </div>
 
