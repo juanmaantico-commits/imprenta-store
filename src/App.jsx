@@ -1336,7 +1336,7 @@ const handleLoginAdmin = (pass) => {
             </div>
             <div className="hero-stats" style={{display:"flex",flexDirection:"column",gap:14,alignItems:"flex-end"}}>
   <div style={{display:"flex",gap:14,flexWrap:"wrap",justifyContent:"flex-end"}}>
-    {[["500+","Clientes"],["9","Categorías"],["24hs","Turno urgente"],["4.9","Rating"]].map(([n,l])=>(
+    {[["¿Sin Diseño?","Nosotros lo armamos"],["Envios","Todo zona sur"],["Presupuestos","Sin cargo"]].map(([n,l])=>(
       <div key={l} style={{background:"rgba(14,165,233,0.05)",border:"1px solid rgba(14,165,233,0.1)",borderRadius:14,padding:"18px 22px",textAlign:"center",minWidth:88}}>
         <p style={{margin:0,color:banner.colorAcento,fontFamily:"'IBM Plex Mono',monospace",fontSize:22,fontWeight:700}}>{n}</p>
         <p style={{margin:"3px 0 0",color:"#374151",fontSize:10,letterSpacing:"0.1em",textTransform:"uppercase"}}>{l}</p>
