@@ -35,11 +35,32 @@ async function subirCLD(file, onProgress) {
   const fd = new FormData();
   fd.append("file", file);
   fd.append("upload_preset", CLD_PRESET);
+
+  const isVideo = file.type.startsWith("video/");
+
+  const endpoint = isVideo
+    ? `https://api.cloudinary.com/v1_1/${CLD_CLOUD}/video/upload`
+    : `https://api.cloudinary.com/v1_1/${CLD_CLOUD}/image/upload`;
+
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `https://api.cloudinary.com/v1_1/${CLD_CLOUD}/auto/upload`);
-    xhr.upload.onprogress = e => { if (e.lengthComputable) onProgress(Math.round(e.loaded/e.total*100)); };
-    xhr.onload = () => xhr.status===200 ? resolve(JSON.parse(xhr.responseText)) : reject(new Error("Error "+xhr.status));
+    xhr.open("POST", endpoint);
+
+    xhr.upload.onprogress = e => {
+      if (e.lengthComputable && onProgress) {
+        onProgress(Math.round((e.loaded / e.total) * 100));
+      }
+    };
+
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        resolve(JSON.parse(xhr.responseText));
+      } else {
+        console.error("Cloudinary error:", xhr.responseText);
+        reject(new Error("Error " + xhr.status));
+      }
+    };
+
     xhr.onerror = () => reject(new Error("Error de red"));
     xhr.send(fd);
   });
@@ -548,7 +569,7 @@ function UploadWidget({ value, onChange }) {
   const [progreso, setProg]   = useState(0);
   const [archivo, setArchivo] = useState(value || null);
   const [err, setErr]         = useState("");
-  const ACCEPT = ".jpg,.jpeg,.png,.pdf,.ai,.psd,.tiff,.eps,.svg,.zip,.rar";
+  const accept=".jpg,.jpeg,.png,.pdf,.ai,.psd,.tiff,.eps,.svg,.zip,.rar,.mp4,.mov,.avi,.webm";
 
   const handleFile = async (file) => {
     if (!file) return;
