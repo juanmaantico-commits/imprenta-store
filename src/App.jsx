@@ -7,21 +7,21 @@ const CATEGORIAS = [
 ];
 
 const PRODUCTOS = [
-  { id:1,  nombre:"Folleto A4 Full Color",      categoria:"Folletos",    precio:1200, unidad:"x100 unid.", img:"https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&q=80", desc:"Impresión full color doble faz, papel ilustración 115g.", opciones:["A4","A5","A3"] },
-  { id:2,  nombre:"Folleto A5 Simple",           categoria:"Folletos",    precio:800,  unidad:"x100 unid.", img:"https://images.unsplash.com/photo-1568667256549-094345857637?w=600&q=80", desc:"Ideal para publicidad, papel bond 90g.", opciones:["A5","A6"] },
-  { id:3,  nombre:"Tarjetas Personales",         categoria:"Tarjetas",    precio:1500, unidad:"x500 unid.", img:"https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80", desc:"Tarjetas 9x5cm, plastificado mate o brillo.", opciones:["Mate","Brillante","Soft Touch"] },
-  { id:4,  nombre:"Tarjetas de Visita Premium",  categoria:"Tarjetas",    precio:2200, unidad:"x250 unid.", img:"https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80", desc:"Con relieve o foil dorado, papel 350g.", opciones:["Foil Oro","Foil Plata","Relieve"] },
-  { id:5,  nombre:"Stickers Troquelados",        categoria:"Stickers",    precio:950,  unidad:"x200 unid.", img:"https://images.unsplash.com/photo-1563207153-f403bf289096?w=600&q=80", desc:"Vinilo adherente, troquelado a medida, resistente al agua.", opciones:["Brillante","Mate","Transparente"] },
-  { id:6,  nombre:"Sticker Sheet A4",            categoria:"Stickers",    precio:600,  unidad:"x50 planchas",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", desc:"Planchas A4 con múltiples diseños, papel adhesivo.", opciones:["Brillante","Mate"] },
-  { id:7,  nombre:"Talonario 50 hojas",          categoria:"Talonarios",  precio:1800, unidad:"x1 talonario",img:"https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&q=80", desc:"Talonarios numerados, papel autocopiante o simple.", opciones:["Simple","Autocopiante 2 vías","Autocopiante 3 vías"] },
-  { id:8,  nombre:"Foto 10x15cm",                categoria:"Fotos",       precio:120,  unidad:"x unidad",   img:"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80", desc:"Revelado digital en papel fotográfico 260g.", opciones:["Brillante","Mate","Satinado"] },
-  { id:9,  nombre:"Foto 20x30cm",                categoria:"Fotos",       precio:450,  unidad:"x unidad",   img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", desc:"Gran formato fotográfico, papel 260g premium.", opciones:["Brillante","Mate"] },
-  { id:10, nombre:"Impresión A4 Color",          categoria:"Impresiones", precio:80,   unidad:"x hoja",     img:"https://images.unsplash.com/photo-1612198790700-0d7ab9f23d72?w=600&q=80", desc:"Impresión láser color alta resolución.", opciones:["Simple faz","Doble faz"] },
-  { id:11, nombre:"Plotter A0 Banner",           categoria:"Impresiones", precio:3500, unidad:"x unidad",   img:"https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=80", desc:"Gran formato para eventos, lona o papel.", opciones:["Lona","Paper","Vinilo"] },
-  { id:12, nombre:"Troquelado Especial",         categoria:"Troquelados", precio:2800, unidad:"x100 unid.", img:"https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?w=600&q=80", desc:"Formas personalizadas: corazón, estrella, packaging.", opciones:["Corazón","Estrella","Círculo","Custom"] },
-  { id:13, nombre:"Carpeta A4 con Bolsillo",     categoria:"Carpetas",    precio:3200, unidad:"x50 unid.",  img:"https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600&q=80", desc:"Carpeta presentación con bolsillo interior, full color.", opciones:["Mate","Brillante","Plastificado"] },
-  { id:14, nombre:"Kit Candy Bar Completo",      categoria:"Candy Bar",   precio:8500, unidad:"x kit",      img:"https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&q=80", desc:"Toppers, etiquetas, cajas, banderines y centros de mesa personalizados.", opciones:["Temático","Clásico","Minimalista"] },
-  { id:15, nombre:"Etiquetas Candy Bar",         categoria:"Candy Bar",   precio:1200, unidad:"x100 unid.", img:"https://images.unsplash.com/photo-1587668178277-295251f900ce?w=600&q=80", desc:"Etiquetas redondas o rectangulares para golosinas.", opciones:["Redonda 4cm","Rect. 5x3cm","Rect. 8x4cm"] },
+  { id:1,  nombre:"Folleto A4 Full Color",      categoria:"Folletos",    seccion:"impresiones",  precio:1200, unidad:"x100 unid.",  precios:[], img:"https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&q=80",  desc:"Impresión full color doble faz, papel ilustración 115g.", opciones:["A4","A5","A3"] },
+  { id:2,  nombre:"Folleto A5 Simple",           categoria:"Folletos",    seccion:"impresiones",  precio:800,  unidad:"x100 unid.",  precios:[], img:"https://images.unsplash.com/photo-1568667256549-094345857637?w=600&q=80",  desc:"Ideal para publicidad, papel bond 90g.", opciones:["A5","A6"] },
+  { id:3,  nombre:"Tarjetas Personales",         categoria:"Tarjetas",    seccion:"terminados",   precio:8000, unidad:"x100 unid.",  precios:[{cantidad:100,opcion:"Simple faz",precio:8000},{cantidad:100,opcion:"Doble faz",precio:11000},{cantidad:200,opcion:"Simple faz",precio:12500},{cantidad:200,opcion:"Doble faz",precio:17000},{cantidad:500,opcion:"Simple faz",precio:24000},{cantidad:500,opcion:"Doble faz",precio:35000}], img:"https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80", desc:"Tarjetas 9x5cm, plastificado mate o brillo.", opciones:["Simple faz","Doble faz"] },
+  { id:4,  nombre:"Tarjetas de Visita Premium",  categoria:"Tarjetas",    seccion:"terminados",   precio:2200, unidad:"x250 unid.",  precios:[], img:"https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80",  desc:"Con relieve o foil dorado, papel 350g.", opciones:["Foil Oro","Foil Plata","Relieve"] },
+  { id:5,  nombre:"Stickers Troquelados",        categoria:"Stickers",    seccion:"terminados",   precio:950,  unidad:"x200 unid.",  precios:[], img:"https://images.unsplash.com/photo-1563207153-f403bf289096?w=600&q=80",  desc:"Vinilo adherente, troquelado a medida, resistente al agua.", opciones:["Brillante","Mate","Transparente"] },
+  { id:6,  nombre:"Sticker Sheet A4",            categoria:"Stickers",    seccion:"terminados",   precio:600,  unidad:"x50 planchas",precios:[], img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",  desc:"Planchas A4 con múltiples diseños, papel adhesivo.", opciones:["Brillante","Mate"] },
+  { id:7,  nombre:"Talonario 50 hojas",          categoria:"Talonarios",  seccion:"terminados",   precio:1800, unidad:"x1 talonario",precios:[], img:"https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&q=80",  desc:"Talonarios numerados, papel autocopiante o simple.", opciones:["Simple","Autocopiante 2 vías","Autocopiante 3 vías"] },
+  { id:8,  nombre:"Foto 10x15cm",                categoria:"Fotos",       seccion:"impresiones",  precio:120,  unidad:"x unidad",    precios:[], img:"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80",  desc:"Revelado digital en papel fotográfico 260g.", opciones:["Brillante","Mate","Satinado"] },
+  { id:9,  nombre:"Foto 20x30cm",                categoria:"Fotos",       seccion:"impresiones",  precio:450,  unidad:"x unidad",    precios:[], img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",  desc:"Gran formato fotográfico, papel 260g premium.", opciones:["Brillante","Mate"] },
+  { id:10, nombre:"Impresión A4 Color",          categoria:"Impresiones", seccion:"impresiones",  precio:80,   unidad:"x hoja",      precios:[], img:"https://images.unsplash.com/photo-1612198790700-0d7ab9f23d72?w=600&q=80",  desc:"Impresión láser color alta resolución.", opciones:["Simple faz","Doble faz"] },
+  { id:11, nombre:"Plotter A0 Banner",           categoria:"Impresiones", seccion:"impresiones",  precio:3500, unidad:"x unidad",    precios:[], img:"https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=80",  desc:"Gran formato para eventos, lona o papel.", opciones:["Lona","Paper","Vinilo"] },
+  { id:12, nombre:"Troquelado Especial",         categoria:"Troquelados", seccion:"terminados",   precio:2800, unidad:"x100 unid.",  precios:[], img:"https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?w=600&q=80",  desc:"Formas personalizadas: corazón, estrella, packaging.", opciones:["Corazón","Estrella","Círculo","Custom"] },
+  { id:13, nombre:"Carpeta A4 con Bolsillo",     categoria:"Carpetas",    seccion:"terminados",   precio:3200, unidad:"x50 unid.",   precios:[], img:"https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600&q=80",  desc:"Carpeta presentación con bolsillo interior, full color.", opciones:["Mate","Brillante","Plastificado"] },
+  { id:14, nombre:"Kit Candy Bar Completo",      categoria:"Candy Bar",   seccion:"terminados",   precio:8500, unidad:"x kit",       precios:[], img:"https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&q=80",  desc:"Toppers, etiquetas, cajas, banderines y centros de mesa personalizados.", opciones:["Temático","Clásico","Minimalista"] },
+  { id:15, nombre:"Etiquetas Candy Bar",         categoria:"Candy Bar",   seccion:"terminados",   precio:1200, unidad:"x100 unid.",  precios:[], img:"https://images.unsplash.com/photo-1587668178277-295251f900ce?w=600&q=80",  desc:"Etiquetas redondas o rectangulares para golosinas.", opciones:["Redonda 4cm","Rect. 5x3cm","Rect. 8x4cm"] },
 ];
 
 const fmt     = (n) => `$${n.toLocaleString("es-AR")}`;
@@ -77,16 +77,26 @@ const sbFetch   = (path, opts={}) => fetch(`${SB_URL}/rest/v1${path}`, { ...opts
 // ── DB: PRODUCTOS ─────────────────────────────────────────────────────────────
 const db = {
   async getProductos() {
-    const r = await sbFetch("/productos?order=id");
-    if (!r.ok) return null;
-    const rows = await r.json();
-    return rows.map(row => ({ ...row, opciones: row.opciones||[], medias: row.medias||[] }));
-  },
+  const r = await sbFetch("/productos?order=id");
+  if (!r.ok) return null;
+  const rows = await r.json();
+  return rows.map(row => ({
+    ...row,
+    opciones: row.opciones||[],
+    medias: row.medias||[],
+    precios: row.precios||[],
+    seccion: row.seccion||"impresiones"
+  }));
+},
   async upsertProducto(p) {
-    const body = JSON.stringify({ id: p.id, nombre: p.nombre, categoria: p.categoria, precio: p.precio,
-      unidad: p.unidad, descripcion: p.descripcion, img: p.img, opciones: p.opciones, medias: p.medias });
-    return sbFetch("/productos", { method:"POST", body, headers:{ "Prefer":"resolution=merge-duplicates" } });
-  },
+  const body = JSON.stringify({
+    id: p.id, nombre: p.nombre, categoria: p.categoria, precio: p.precio,
+    unidad: p.unidad, descripcion: p.descripcion, img: p.img,
+    opciones: p.opciones, medias: p.medias, precios: p.precios||[],
+    seccion: p.seccion||"impresiones"
+  });
+  return sbFetch("/productos", { method:"POST", body, headers:{ "Prefer":"resolution=merge-duplicates" } });
+},
   async deleteProducto(id) {
     return sbFetch(`/productos?id=eq.${id}`, { method:"DELETE" });
   },
