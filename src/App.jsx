@@ -463,6 +463,43 @@ function AdminPanel({ productos, onSave, onClose }) {
                 </div>
               </div>
 
+              {/* Editor de precios por cantidad */}
+<div>
+  {lbl("Precios por cantidad y opción")}
+  <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:8}}>
+    {(editData.precios||[]).map((pr,pi)=>(
+      <div key={pi} style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr auto",gap:8,alignItems:"center",background:"#0d0d10",border:"1px solid #1f2937",borderRadius:8,padding:"8px 10px"}}>
+        <div>
+          <label style={{color:"#475569",fontSize:10,display:"block",marginBottom:3}}>Cantidad</label>
+          <input type="number" value={pr.cantidad}
+            onChange={e=>set("precios",editData.precios.map((p,i)=>i===pi?{...p,cantidad:+e.target.value}:p))}
+            style={{width:"100%",background:"#111118",border:"1px solid #1f2937",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:12,outline:"none",fontFamily:"inherit"}}/>
+        </div>
+        <div>
+          <label style={{color:"#475569",fontSize:10,display:"block",marginBottom:3}}>Opción</label>
+          <input value={pr.opcion}
+            onChange={e=>set("precios",editData.precios.map((p,i)=>i===pi?{...p,opcion:e.target.value}:p))}
+            placeholder="Ej: Simple faz"
+            style={{width:"100%",background:"#111118",border:"1px solid #1f2937",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:12,outline:"none",fontFamily:"inherit"}}/>
+        </div>
+        <div>
+          <label style={{color:"#475569",fontSize:10,display:"block",marginBottom:3}}>Precio $</label>
+          <input type="number" value={pr.precio}
+            onChange={e=>set("precios",editData.precios.map((p,i)=>i===pi?{...p,precio:+e.target.value}:p))}
+            style={{width:"100%",background:"#111118",border:"1px solid #1f2937",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:12,outline:"none",fontFamily:"inherit"}}/>
+        </div>
+        <button onClick={()=>set("precios",editData.precios.filter((_,i)=>i!==pi))}
+          style={{background:"none",border:"none",color:"#ef4444",cursor:"pointer",padding:"4px",display:"flex",alignSelf:"flex-end",marginBottom:2}}>
+          <IcoTrash/>
+        </button>
+      </div>
+    ))}
+  </div>
+  <button onClick={()=>set("precios",[...(editData.precios||[]),{cantidad:100,opcion:"Simple faz",precio:0}])}
+    style={{background:"#111118",border:"1px dashed #1f2937",borderRadius:8,padding:"7px 14px",color:"#475569",cursor:"pointer",fontSize:12,fontFamily:"inherit",display:"flex",alignItems:"center",gap:6}}>
+    <IcoPlus/> Agregar precio
+  </button>
+</div>
               {/* Campos de texto */}
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
                 <div style={{gridColumn:"1/-1"}}>{lbl("Nombre del producto")}<input {...inp(editData.nombre,v=>set("nombre",v),"Nombre")}/></div>
