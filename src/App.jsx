@@ -956,8 +956,20 @@ function CheckoutModal({ items, onClose, onDone, onUpdateQty, onRemove }) {
 
 // ── MODAL DETALLE PRODUCTO ────────────────────────────────────────────────────
 function ModalDetalle({ producto, onClose, onAdd }) {
-  const [opcion, setOpcion] = useState(producto.opciones[0]);
-  const [qty, setQty]       = useState(1);
+  const tienePrecios = producto.precios && producto.precios.length > 0;
+  const cantidades   = tienePrecios ? [...new Set(producto.precios.map(p=>p.cantidad))] : [];
+  const [cantidad, setCantidad] = useState(cantidades[0] || null);
+  const [opcion, setOpcion]     = useState(producto.opciones[0]);
+  const [qty, setQty]           = useState(1);
+
+  const precioActual = tienePrecios
+    ? (producto.precios.find(p=>p.cantidad===cantidad && p.opcion===opcion)?.precio || producto.precio)
+    : producto.precio;
+
+  const opcionesPorCantidad = tienePrecios && cantidad
+    ? [...new Set(producto.precios.filter(p=>p.cantidad===cantidad).map(p=>p.opcion))]
+    : producto.opciones;
+
   const medias = producto.medias && producto.medias.length > 0
     ? producto.medias
     : [{ tipo:"image", src: producto.img, principal: true }];
