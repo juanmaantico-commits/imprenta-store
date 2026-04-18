@@ -1011,16 +1011,48 @@ function ModalDetalle({ producto, onClose, onAdd }) {
               <span style={{fontSize:26,fontWeight:800,color:"#0ea5e9",fontFamily:"monospace"}}>{fmt(precioActual*qty)}</span>
               <span style={{color:"#374151",fontSize:12}}>{producto.unidad}</span>
             </div>
-            <div>
-              <p style={{margin:"0 0 8px",color:"#94a3b8",fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase"}}>Acabado / Formato</p>
-              <div style={{display:"flex",flexWrap:"wrap",gap:7}}>
-                {producto.opciones.map(op=>(
-                  <button key={op} onClick={()=>setOpcion(op)} style={{background:opcion===op?"linear-gradient(135deg,#0ea5e9,#38bdf8)":"#161620",border:`1px solid ${opcion===op?"transparent":"#1f2937"}`,borderRadius:8,padding:"6px 13px",color:opcion===op?"#fff":"#64748b",cursor:"pointer",fontSize:13,fontFamily:"inherit",transition:"all 0.2s"}}>
-                    {op}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {/* Cantidades si tiene precios variables */}
+{tienePrecios && (
+  <div>
+    <p style={{margin:"0 0 8px",color:"#94a3b8",fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase"}}>Cantidad</p>
+    <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+      {cantidades.map(c=>(
+        <button key={c} onClick={()=>{setCantidad(c);setOpcion(producto.precios.filter(p=>p.cantidad===c)[0]?.opcion||opcion);}}
+          style={{background:cantidad===c?"linear-gradient(135deg,#0ea5e9,#38bdf8)":"#161620",border:`1px solid ${cantidad===c?"transparent":"#1f2937"}`,borderRadius:8,padding:"7px 14px",color:cantidad===c?"#fff":"#64748b",cursor:"pointer",fontSize:13,fontFamily:"inherit",transition:"all 0.2s"}}>
+          {c} unid.
+        </button>
+      ))}
+    </div>
+  </div>
+)}
+
+{/* Opciones / Acabado */}
+<div>
+  <p style={{margin:"0 0 8px",color:"#94a3b8",fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase"}}>Acabado</p>
+  <div style={{display:"flex",flexWrap:"wrap",gap:7}}>
+    {(tienePrecios && cantidad
+      ? [...new Set(producto.precios.filter(p=>p.cantidad===cantidad).map(p=>p.opcion))]
+      : producto.opciones
+    ).map(op=>(
+      <button key={op} onClick={()=>setOpcion(op)}
+        style={{background:opcion===op?"linear-gradient(135deg,#0ea5e9,#38bdf8)":"#161620",border:`1px solid ${opcion===op?"transparent":"#1f2937"}`,borderRadius:8,padding:"6px 13px",color:opcion===op?"#fff":"#64748b",cursor:"pointer",fontSize:13,fontFamily:"inherit",transition:"all 0.2s"}}>
+        {op}
+      </button>
+    ))}
+  </div>
+</div>
+
+{/* Multiplicador de pedidos (solo sin precios variables) */}
+{!tienePrecios && (
+  <div style={{display:"flex",alignItems:"center",gap:10}}>
+    <p style={{margin:0,color:"#94a3b8",fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase"}}>Cantidad</p>
+    <div style={{display:"flex",alignItems:"center",background:"#161620",border:"1px solid #1f2937",borderRadius:9,overflow:"hidden"}}>
+      <button onClick={()=>setQty(q=>Math.max(1,q-1))} style={{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",padding:"7px 13px",display:"flex"}}><IcoMinus/></button>
+      <span style={{color:"#f1f5f9",minWidth:28,textAlign:"center",fontWeight:700}}>{qty}</span>
+      <button onClick={()=>setQty(q=>q+1)} style={{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",padding:"7px 13px",display:"flex"}}><IcoPlus/></button>
+    </div>
+  </div>
+)}
             <div style={{display:"flex",alignItems:"center",gap:10}}>
               <p style={{margin:0,color:"#94a3b8",fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase"}}>Cantidad</p>
               <div style={{display:"flex",alignItems:"center",background:"#161620",border:"1px solid #1f2937",borderRadius:9,overflow:"hidden"}}>
@@ -1034,7 +1066,7 @@ function ModalDetalle({ producto, onClose, onAdd }) {
               <span style={{color:"#a78bfa",fontSize:13,flexShrink:0}}>🎨</span>
               <p style={{margin:0,color:"#64748b",fontSize:12,lineHeight:1.5}}>Al finalizar el pedido podrás <strong style={{color:"#a78bfa"}}>subir tu diseño</strong> o elegir <strong style={{color:"#22c55e"}}>diseño incluido sin costo</strong>.</p>
             </div>
-            <button onClick={()=>{ onAdd({...producto,opcionSeleccionada:opcion,qty}); onClose(); }}
+            <button onClick={()=>{ onAdd({...producto, opcionSeleccionada:opcion, cantidadSeleccionada:cantidad, precioFinal:precioActual, qty:tienePrecios?1:qty}); onClose(); }}
               style={{background:"linear-gradient(135deg,#0ea5e9,#38bdf8)",border:"none",borderRadius:12,padding:"12px",color:"#fff",fontWeight:800,cursor:"pointer",fontSize:15,boxShadow:"0 4px 18px rgba(14,165,233,0.3)"}}>
               Agregar al presupuesto
             </button>
