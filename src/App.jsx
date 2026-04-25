@@ -1458,7 +1458,7 @@ const handleLoginAdmin = (pass) => {
         </div>
       ))}
     </div>
-    <a href="tel:1128468594" style={{display:"flex",alignItems:"center",gap:10,background:"rgba(14,165,233,0.08)",border:"1px solid rgba(14,165,233,0.2)",borderRadius:14,padding:"14px 24px",textDecoration:"none",width:"100%",justifyContent:"center"}}>
+    <a href="tel: Whatsapp 1128468594" style={{display:"flex",alignItems:"center",gap:10,background:"rgba(14,165,233,0.08)",border:"1px solid rgba(14,165,233,0.2)",borderRadius:14,padding:"14px 24px",textDecoration:"none",width:"100%",justifyContent:"center"}}>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
       <span style={{color:"#0ea5e9",fontSize:26,fontWeight:800,fontFamily:"'IBM Plex Mono',monospace",letterSpacing:"0.05em"}}>11 2846-8594</span>
     </a>
