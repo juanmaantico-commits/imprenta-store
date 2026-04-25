@@ -1545,7 +1545,6 @@ const handleLoginAdmin = (pass) => {
             <p style={{color:"#1a2535",fontSize:11,fontFamily:"'IBM Plex Mono',monospace"}}>© {new Date().getFullYear()} — Imprenta Digital</p>
           </div>
         </footer>
-      </div>
 
       {/* MODALES */}
       {detalle && <ModalDetalle producto={detalle} onClose={()=>setDetalle(null)} onAdd={agregarAlCarrito}/>}
